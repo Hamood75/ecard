@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohamed Abdi Mashaka - Business Card</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf/0.9.2/html2pdf.bundle.js"></script>
+  <style>
+    .back {
+      width: 350px;
+      height: 200px;
+      display: grid;
+      font-family: 'Trebuchet MS', sans-serif;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      position: relative;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Coat_of_arms_of_Tanzania.svg/200px-Coat_of_arms_of_Tanzania.svg.png') no-repeat center;
+      background-size: 95px; /* Smaller size for the background image */
+      opacity: 1; /* Lower opacity for better visibility of text */
+    }
+    .cyan {
+      background-color: #00aaff;
+      grid-column: 1 / span 9;
+      grid-row: 1 / span 3;
+      z-index: 1; /* Ensures this is above the background image */
+    }
+    .top.dots {
+      background: radial-gradient(#00aaff 20%, transparent 19%), radial-gradient(#00aaff 20%, transparent 19%);
+      background-size: 6px 6px;
+      background-position: 0 0, 5px 5px;
+      grid-column: 8 / span 6;
+      grid-row: 2 / span 3;
+      z-index: 1;
+    }
+    .personal-info {
+      grid-column: 2 / span 6;
+      grid-row: 5 / span 6;
+      color: #003f88;
+      z-index: 2; /* Text always stays on top */
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for better readability */
+      padding: 5px;
+      border-radius: 5px;
+    }
+    .personal-info p {
+      font-size: 10px;
+    }
+    .personal-info p:first-of-type {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .bottom.dots {
+      background: radial-gradient(#00aaff 20%, transparent 19%), radial-gradient(#00aaff 20%, transparent 19%);
+      background-size: 6px 6px;
+      background-position: 0 0, 3px 3px;
+      grid-column: 1 / span 12;
+      grid-row: 11 / span 2;
+      z-index: 1;
+    }
+    .lightblue {
+      background-color: #87cefa;
+      grid-column: 1 / span 12;
+      grid-row: 12 / span 1;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="back-card" class="back">
+    <div class="cyan"></div>
+    <div class="top dots"></div>
+    <div class="personal-info">
+      <p>Mohamed Abdi Mashaka</p>
+      <p>Director of the Department of Development of Information Systems and Services (DISDS)</p>
+      <p>Ministry of Communication and Information Technology</p>
+      <p>P.O. BOX 677</p>
+      <p>40470 Dodoma, Tanzania</p>
+      <p>+255 714-757373</p>
+      <p>mohamed.mashaka@mawasiliano.go.tz</p>
+    </div>
+    <div class="bottom dots"></div>
+    <div class="lightblue"></div>
+  </div>
+
+  <script>
+    window.onload = function() {
+  html2canvas(document.getElementById("back-card"), {
+    useCORS: true // Enable cross-origin resource sharing for external images
+  }).then(canvas => {
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = image;
+        link.download = "Mohamed Abdi Mashaka e-business-card.png";
+        link.click();
+      });
+    };
+  </script>
+</body>
+</html>
