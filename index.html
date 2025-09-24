@@ -3,139 +3,665 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mohamed Mashaka - E-Business Card</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <title>Mohamed Mashaka - Digital Business Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <style>
+    :root {
+      --primary-blue: #1e3a8a;
+      --secondary-blue: #3b82f6;
+      --accent-gold: #f59e0b;
+      --light-gray: #f8fafc;
+      --medium-gray: #64748b;
+      --dark-gray: #1e293b;
+      --white: #ffffff;
+      --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      --gradient-secondary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      --shadow-card: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    html, body {
-      height: 100%;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #f0f4ff, #dbe7f9);
-      color: #333;
+
+    html {
+      scroll-behavior: smooth;
     }
+
     body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gradient-secondary);
+      color: var(--dark-gray);
+      line-height: 1.7;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
-    header {
-      background: linear-gradient(135deg, #0047AB, #003580);
-      color: white;
+
+    /* Header Styles */
+    .header {
+      background: var(--gradient-primary);
+      position: relative;
+      overflow: hidden;
+      padding: 50px 20px 70px;
       text-align: center;
-      padding: 60px 20px;
-      clip-path: ellipse(120% 100% at 50% 0);
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="tech-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><g fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"><circle cx="20" cy="20" r="3"/><circle cx="80" cy="20" r="2"/><circle cx="50" cy="50" r="2.5"/><circle cx="20" cy="80" r="2"/><circle cx="80" cy="80" r="3"/><line x1="20" y1="20" x2="50" y2="50"/><line x1="50" y1="50" x2="80" y2="20"/><line x1="50" y1="50" x2="20" y2="80"/><line x1="50" y1="50" x2="80" y2="80"/><rect x="45" y="45" width="10" height="10" fill="rgba(255,255,255,0.05)"/><polygon points="35,35 40,30 45,35 40,40" fill="rgba(255,255,255,0.08)"/><polygon points="55,65 60,60 65,65 60,70" fill="rgba(255,255,255,0.08)"/></g></pattern></defs><rect width="100%" height="100%" fill="url(%23tech-pattern)"/><g fill="rgba(245,158,11,0.15)"><circle cx="150" cy="120" r="30" opacity="0.3"/><circle cx="700" cy="200" r="40" opacity="0.2"/><circle cx="400" cy="80" r="25" opacity="0.4"/><circle cx="850" cy="150" r="35" opacity="0.25"/></g></svg>') repeat;
+      opacity: 1;
+      z-index: 1;
+      animation: techFloat 20s linear infinite;
+    }
+
+    @keyframes techFloat {
+      0% { transform: translateX(0) translateY(0); }
+      25% { transform: translateX(-10px) translateY(-5px); }
+      50% { transform: translateX(10px) translateY(-10px); }
+      75% { transform: translateX(-5px) translateY(-15px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 200px;
+      height: 200px;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(245,158,11,0.2)"/><stop offset="100%" stop-color="rgba(245,158,11,0)"/></radialGradient></defs><circle cx="100" cy="100" r="80" fill="url(%23glow)"/><g fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"><path d="M60 60 L140 60 L140 140 L60 140 Z"/><circle cx="100" cy="100" r="25"/><line x1="75" y1="75" x2="125" y2="125"/><line x1="125" y1="75" x2="75" y2="125"/></g></svg>') no-repeat center;
+      background-size: contain;
+      opacity: 0.6;
+      z-index: 1;
+      animation: rotate 30s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      letter-spacing: -0.02em;
+    }
+
+    .header .title {
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .header .department {
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 400;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 40px 20px 30px;
+    }
+
+    .container {
+      max-width: 750px;
+      margin: 0 auto;
+    }
+
+    .profile-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: -25px;
+      z-index: 10;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 200px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Coat_of_arms_of_Tanzania.svg/200px-Coat_of_arms_of_Tanzania.svg.png') no-repeat center;
+      background-size: 120px;
+      opacity: 0.05;
+      z-index: 1;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.65rem;
+      font-weight: 600;
+      color: var(--primary-blue);
+      margin-bottom: 24px;
+      text-align: center;
       position: relative;
     }
-    header h1 {
-      font-size: 3rem;
-      margin: 0;
-      font-weight: bold;
-    }
-    header p {
-      font-size: 1.2rem;
-    }
-    main {
-      flex: 1; /* Ensures the content area grows to fill available space */
-      text-align: center;
-      padding: 20px;
-    }
-    .profile-card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 30px 20px;
-    position: relative; /* Required for positioning the pseudo-element */
-    overflow: hidden; /* Ensures the pseudo-element doesn't overflow */
-}
 
-.profile-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Coat_of_arms_of_Tanzania.svg/200px-Coat_of_arms_of_Tanzania.svg.png') no-repeat center;
-    background-size: 145px; /* Smaller size for the background image */
-    opacity: 0.2; /* Adjust opacity to fade the background image */
-    z-index: 1; /* Ensure it stays behind the content */
-}
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background: var(--accent-gold);
+      border-radius: 2px;
+    }
 
-.profile-card > * {
-    position: relative;
-    z-index: 2; /* Ensure the content stays above the faded background */
-}
-    .profile-card h2 {
-      color: #0047AB;
-      margin-bottom: 10px;
+    .contact-grid {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 28px;
     }
-    .profile-card p {
-      line-height: 1.6;
-    }
-    .cta {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 25px;
-      background: #0047AB;
-      color: white;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-radius: 30px;
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      background: rgba(30, 58, 138, 0.02);
+      border-radius: 14px;
+      border-left: 3px solid var(--accent-gold);
       transition: all 0.3s ease;
     }
-    .cta:hover {
-      background: #003580;
+
+    .contact-item:hover {
+      background: rgba(30, 58, 138, 0.05);
+      transform: translateX(4px);
     }
-    footer {
-      background: #0047AB;
-      color: white;
+
+    .contact-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--gradient-primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .contact-details {
+      flex: 1;
+    }
+
+    .contact-label {
+      font-weight: 600;
+      color: var(--primary-blue);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
+    }
+
+    .contact-value {
+      font-size: 0.95rem;
+      color: var(--dark-gray);
+      line-height: 1.4;
+    }
+
+    .contact-value a {
+      color: var(--secondary-blue);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-value a:hover {
+      color: var(--primary-blue);
+      text-decoration: underline;
+    }
+
+    .address-lines {
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* CTA Button */
+    .cta-container {
       text-align: center;
-      padding: 15px 0;
-      font-size: 0.9rem;
-      position: relative;
+      margin-top: 28px;
     }
-    @media screen and (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--gradient-primary);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(30, 58, 138, 0.4);
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    }
+
+    .cta i {
+      font-size: 18px;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--primary-blue);
+      color: var(--white);
+      text-align: center;
+      padding: 24px 20px;
+      margin-top: 40px;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer p {
+      opacity: 0.9;
+      font-size: 0.85rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .container {
+        max-width: 90%;
       }
-      header p {
-        font-size: 1rem;
-      }
+      
       .profile-card {
-        padding: 20px 15px;
+        padding: 38px 32px;
       }
     }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 35px 20px 50px;
+      }
+
+      .main {
+        padding: 30px 20px 25px;
+      }
+
+      .container {
+        max-width: 95%;
+      }
+
+      .profile-card {
+        padding: 24px 20px;
+        margin-top: -15px;
+        border-radius: 18px;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+      }
+
+      .contact-grid {
+        gap: 14px;
+      }
+
+      .contact-item {
+        padding: 14px 16px;
+        gap: 12px;
+        border-radius: 12px;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .contact-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        border-radius: 8px;
+      }
+
+      .contact-label {
+        font-size: 0.75rem;
+        margin-bottom: 2px;
+      }
+
+      .contact-value {
+        font-size: 0.9rem;
+        line-height: 1.3;
+      }
+
+      .cta {
+        padding: 12px 24px;
+        font-size: 0.95rem;
+        gap: 8px;
+      }
+
+      .footer {
+        padding: 20px;
+        margin-top: 30px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        padding: 30px 16px 45px;
+      }
+
+      .main {
+        padding: 25px 16px 20px;
+      }
+
+      .profile-card {
+        padding: 22px 18px;
+        border-radius: 16px;
+      }
+
+      .section-title {
+        font-size: 1.3rem;
+        margin-bottom: 18px;
+      }
+
+      .contact-item {
+        padding: 12px 14px;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .contact-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+      }
+
+      .contact-details {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .contact-value {
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+
+      .address-lines {
+        margin-top: 2px;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 25px 12px 40px;
+      }
+
+      .header h1 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        margin-bottom: 12px;
+      }
+
+      .header .title {
+        font-size: clamp(0.95rem, 3vw, 1.2rem);
+        line-height: 1.4;
+        margin-bottom: 6px;
+      }
+
+      .header .department {
+        font-size: clamp(0.85rem, 2.5vw, 1rem);
+      }
+
+      .main {
+        padding: 20px 12px 15px;
+      }
+
+      .profile-card {
+        padding: 18px 16px;
+        border-radius: 14px;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+      }
+
+      .contact-grid {
+        gap: 10px;
+      }
+
+      .contact-item {
+        padding: 10px 12px;
+        gap: 8px;
+        border-left-width: 2px;
+      }
+
+      .contact-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+        border-radius: 6px;
+      }
+
+      .contact-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.3px;
+      }
+
+      .contact-value {
+        font-size: 0.85rem;
+      }
+
+      .cta {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        gap: 6px;
+      }
+
+      .cta i {
+        font-size: 14px;
+      }
+
+      .footer {
+        padding: 16px 12px;
+        margin-top: 25px;
+      }
+
+      .footer p {
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .header {
+        padding: 20px 8px 35px;
+      }
+
+      .main {
+        padding: 15px 8px 12px;
+      }
+
+      .profile-card {
+        padding: 14px 12px;
+        border-radius: 12px;
+      }
+
+      .contact-item {
+        padding: 8px 10px;
+        gap: 6px;
+      }
+
+      .contact-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        margin-bottom: 14px;
+      }
+
+      .contact-value {
+        font-size: 0.8rem;
+      }
+
+      .cta {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-card {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .contact-item {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .contact-item:nth-child(2) { animation-delay: 0.1s; }
+    .contact-item:nth-child(3) { animation-delay: 0.2s; }
+    .contact-item:nth-child(4) { animation-delay: 0.3s; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Mohamed Abdi Mashaka</h1>
-    <p>Director of the Department of Development of Information Systems and Services (DISDS)</p>
-    <p>Ministry of Communication and Information Technology</p>
+  <header class="header">
+    <div class="header-content">
+      <h1>Mohamed Abdi Mashaka</h1>
+      <p class="title">Director of Information Services, Development System and Compliance (DISDSC)</p>
+      <p class="department">Ministry of Communication and Information Technology</p>
+    </div>
   </header>
   
-  <main>
-    <div class="profile-card">
-      <h2>Contact Details</h2>
-      <p>
-        <strong>Email:</strong> <a href="mailto:mohamed.mashaka@mawasiliano.go.tz">mohamed.mashaka@mawasiliano.go.tz</a><br>
-        <strong>Phone:</strong> <a href="tel:+255714757373">+255 714-757373</a><br>
-        <strong>Address:</strong><br>
-        Mtumba Government City, Ujenzi Street<br>
-        P.O. BOX 677, 40470 Dodoma,<br> 
-        Tanzania.
-      </p>
-      <button id="download" class="cta">Download</button>
+  <main class="main">
+    <div class="container">
+      <div class="profile-card">
+        <div class="card-content">
+          <h2 class="section-title">Professional Contact</h2>
+          
+          <div class="contact-grid">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <div class="contact-label">Official Email</div>
+                <div class="contact-value">
+                  <a href="mailto:mohamed.mashaka@mawasiliano.go.tz">mohamed.mashaka@mawasiliano.go.tz</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope-open"></i>
+              </div>
+              <div class="contact-details">
+                <div class="contact-label">Personal Email</div>
+                <div class="contact-value">
+                  <a href="mailto:mohdpo2020@gmail.com">mohdpo2020@gmail.com</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-details">
+                <div class="contact-label">Mobile Phone</div>
+                <div class="contact-value">
+                  <a href="tel:+255714757373">+255 714-757373</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-details">
+                <div class="contact-label">Office Address</div>
+                <div class="contact-value">
+                  Mtumba Government City, Mawasiliano Street
+                  <span class="address-lines">P.O. BOX 677, 40470 Dodoma, Tanzania</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cta-container">
+            <button id="download" class="cta">
+              <i class="fas fa-download"></i>
+              Download Business Card
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
-  <footer>
-    &copy; 2024 Ministry of Communication and Information Technology, Tanzania
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Ministry of Communication and Information Technology, Tanzania</p>
+    </div>
   </footer>
 
   <script>
