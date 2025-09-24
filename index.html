@@ -90,6 +90,37 @@
       to { transform: rotate(360deg); }
     }
 
+    /* Country Header */
+    .country-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 30px;
+      padding-top: 10px;
+    }
+
+    .coat-of-arms {
+      width: 50px;
+      height: 50px;
+      background: url('assets/bibi.png') no-repeat center;
+      background-size: contain;
+      opacity: 0.9;
+      filter: brightness(1.2) contrast(1.1);
+    }
+
+    .country-name {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
     .header-content {
       position: relative;
       z-index: 2;
@@ -153,13 +184,14 @@
     .profile-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      right: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 200px;
       height: 200px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Coat_of_arms_of_Tanzania.svg/200px-Coat_of_arms_of_Tanzania.svg.png') no-repeat center;
+      background: url('assets/bibi.png') no-repeat center;
       background-size: 120px;
-      opacity: 0.05;
+      opacity: 0.15;
       z-index: 1;
     }
 
@@ -583,6 +615,10 @@
 </head>
 <body>
   <header class="header">
+    <div class="country-header">
+      <div class="coat-of-arms"></div>
+      <p class="country-name">The United Republic of Tanzania</p>
+    </div>
     <div class="header-content">
       <h1>Mohamed Abdi Mashaka</h1>
       <p class="title">Director of Information System Development, Services and Compliance (DISDSC)</p>

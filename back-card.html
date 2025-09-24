@@ -75,7 +75,7 @@
     /* Front Card Styles */
     .front-header {
       background: rgba(255, 255, 255, 0.1);
-      padding: 20px 24px 16px;
+      padding: 16px 24px 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       position: relative;
     }
@@ -126,10 +126,11 @@
 
     .front-content {
       flex: 1;
-      padding: 20px 24px;
+      padding: 16px 24px 20px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
+      margin-top: -4px;
     }
 
     .contact-highlight {
@@ -150,19 +151,22 @@
     .email-group {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
+      line-height: 1.2;
     }
 
     .email-primary {
       font-weight: 600;
       font-size: 13px;
+      line-height: 1.3;
     }
 
     .email-secondary {
       font-weight: 400;
-      font-size: 12px;
+      font-size: 11.5px;
       opacity: 0.85;
       font-style: italic;
+      line-height: 1.2;
     }
 
     .motto {
