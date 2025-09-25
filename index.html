@@ -7,6 +7,209 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <style>
+    /* Password Protection Modal */
+    .password-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      backdrop-filter: blur(20px);
+    }
+
+    .password-modal {
+      background: white;
+      border-radius: 24px;
+      padding: 40px 35px;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      position: relative;
+      animation: passwordModalIn 0.6s ease-out;
+    }
+
+    .password-modal::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #f59e0b, #3b82f6, #10b981);
+      border-radius: 26px;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    .password-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 15px 30px rgba(30, 58, 138, 0.3);
+    }
+
+    .password-icon i {
+      color: white;
+      font-size: 32px;
+    }
+
+    .password-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin: 0 0 12px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .password-subtitle {
+      color: #64748b;
+      font-size: 16px;
+      margin: 0 0 30px 0;
+      line-height: 1.5;
+    }
+
+    .password-input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .password-input {
+      width: 100%;
+      padding: 18px 24px;
+      border: 2px solid #e2e8f0;
+      border-radius: 50px;
+      font-size: 18px;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 8px;
+      font-family: 'Inter', monospace;
+      transition: all 0.3s ease;
+      background: #f8fafc;
+    }
+
+    .password-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .password-submit {
+      width: 100%;
+      padding: 18px 24px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.3);
+    }
+
+    .password-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(30, 58, 138, 0.4);
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+    }
+
+    .password-error {
+      color: #ef4444;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 15px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      background: #fef2f2;
+      padding: 10px 16px;
+      border-radius: 50px;
+      border: 1px solid #fecaca;
+    }
+
+    .password-error.show {
+      opacity: 1;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    .main-content {
+      display: none;
+    }
+
+    .main-content.show {
+      display: block;
+      animation: contentFadeIn 0.8s ease-out;
+    }
+
+    @keyframes passwordModalIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes contentFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+
+    @media (max-width: 480px) {
+      .password-modal {
+        padding: 30px 25px;
+        margin: 20px;
+      }
+
+      .password-title {
+        font-size: 24px;
+      }
+
+      .password-subtitle {
+        font-size: 14px;
+      }
+
+      .password-input {
+        padding: 16px 20px;
+        font-size: 16px;
+        letter-spacing: 6px;
+      }
+
+      .password-submit {
+        padding: 16px 20px;
+        font-size: 15px;
+      }
+    }
+
     :root {
       --primary-blue: #1e3a8a;
       --secondary-blue: #3b82f6;
@@ -614,7 +817,42 @@
   </style>
 </head>
 <body>
-  <header class="header">
+  <!-- Password Protection Modal -->
+  <div id="password-overlay" class="password-overlay">
+    <div class="password-modal">
+      <div class="password-icon">
+        <i class="fas fa-lock"></i>
+      </div>
+      <h2 class="password-title">Private Access</h2>
+      <p class="password-subtitle">This professional profile is protected. Please enter the access code to continue.</p>
+      
+      <form id="password-form">
+        <div class="password-input-group">
+          <input 
+            type="password" 
+            id="password-input" 
+            class="password-input" 
+            placeholder="****" 
+            maxlength="4"
+            autocomplete="off"
+            autofocus
+          >
+        </div>
+        <button type="submit" class="password-submit">
+          <i class="fas fa-unlock" style="margin-right: 8px;"></i>
+          Access Profile
+        </button>
+        <div id="password-error" class="password-error">
+          <i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i>
+          Incorrect access code. Please try again.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Content (Hidden by default) -->
+  <div id="main-content" class="main-content">
+    <header class="header">
     <div class="country-header">
       <div class="coat-of-arms"></div>
       <p class="country-name">The United Republic of Tanzania</p>
@@ -694,13 +932,133 @@
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="footer-content">
-      <p>&copy; 2025 Ministry of Communication and Information Technology, Tanzania (Privacy Matters)</p>
-    </div>
-  </footer>
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2025 Ministry of Communication and Information Technology, Tanzania (Privacy Matters)</p>
+      </div>
+    </footer>
+  </div> <!-- End main-content -->
 
   <script>
+    // Password Protection System
+    const CORRECT_PASSWORD = '0101';
+    let isAuthenticated = false;
+
+    // Check if user is already authenticated (session storage)
+    function checkAuthentication() {
+      const sessionAuth = sessionStorage.getItem('profileAuthenticated');
+      if (sessionAuth === 'true') {
+        showMainContent();
+        return true;
+      }
+      return false;
+    }
+
+    // Show main content and hide password modal
+    function showMainContent() {
+      const passwordOverlay = document.getElementById('password-overlay');
+      const mainContent = document.getElementById('main-content');
+      
+      passwordOverlay.style.animation = 'passwordModalOut 0.5s ease-in forwards';
+      
+      setTimeout(() => {
+        passwordOverlay.style.display = 'none';
+        mainContent.classList.add('show');
+        isAuthenticated = true;
+      }, 500);
+    }
+
+    // Show error message
+    function showPasswordError() {
+      const errorEl = document.getElementById('password-error');
+      const inputEl = document.getElementById('password-input');
+      
+      errorEl.classList.add('show');
+      inputEl.style.borderColor = '#ef4444';
+      inputEl.style.background = '#fef2f2';
+      
+      // Clear input
+      inputEl.value = '';
+      inputEl.focus();
+      
+      // Reset error after 3 seconds
+      setTimeout(() => {
+        errorEl.classList.remove('show');
+        inputEl.style.borderColor = '#e2e8f0';
+        inputEl.style.background = '#f8fafc';
+      }, 3000);
+    }
+
+    // Handle password form submission
+    function handlePasswordSubmit(e) {
+      e.preventDefault();
+      const inputPassword = document.getElementById('password-input').value;
+      
+      if (inputPassword === CORRECT_PASSWORD) {
+        // Store authentication in session
+        sessionStorage.setItem('profileAuthenticated', 'true');
+        showMainContent();
+      } else {
+        showPasswordError();
+      }
+    }
+
+    // Add password modal out animation
+    const passwordModalOutStyle = document.createElement('style');
+    passwordModalOutStyle.textContent = `
+      @keyframes passwordModalOut {
+        from {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: scale(0.8) translateY(-50px);
+        }
+      }
+    `;
+    document.head.appendChild(passwordModalOutStyle);
+
+    // Initialize password protection on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if already authenticated
+      if (checkAuthentication()) {
+        return;
+      }
+
+      // Add form submission handler
+      const passwordForm = document.getElementById('password-form');
+      if (passwordForm) {
+        passwordForm.addEventListener('submit', handlePasswordSubmit);
+      }
+
+      // Add input event listeners for better UX
+      const passwordInput = document.getElementById('password-input');
+      if (passwordInput) {
+        // Auto-submit when 4 digits are entered
+        passwordInput.addEventListener('input', function(e) {
+          const value = e.target.value;
+          if (value.length === 4) {
+            setTimeout(() => {
+              if (value === CORRECT_PASSWORD) {
+                sessionStorage.setItem('profileAuthenticated', 'true');
+                showMainContent();
+              } else {
+                showPasswordError();
+              }
+            }, 300);
+          }
+        });
+
+        // Allow only numbers
+        passwordInput.addEventListener('keypress', function(e) {
+          if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'Enter') {
+            e.preventDefault();
+          }
+        });
+      }
+    });
+
     // Contact information object
     const contactInfo = {
       firstName: 'Mohamed Abdi',
@@ -989,9 +1347,16 @@
     }
 
     // Main click event for download button
-    document.getElementById('download').addEventListener('click', (e) => {
-      e.preventDefault();
-      showDownloadModal();
+    document.addEventListener('DOMContentLoaded', function() {
+      const downloadBtn = document.getElementById('download');
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (isAuthenticated || sessionStorage.getItem('profileAuthenticated') === 'true') {
+            showDownloadModal();
+          }
+        });
+      }
     });
   </script>
 </body>
