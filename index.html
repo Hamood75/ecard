@@ -701,9 +701,297 @@
   </footer>
 
   <script>
-    document.getElementById('download').addEventListener('click', () => {
-      // Redirect to the new page that displays the back of the card
-      window.location.href = 'back-card.html';
+    // Contact information object
+    const contactInfo = {
+      firstName: 'Mohamed Abdi',
+      lastName: 'Mashaka',
+      title: 'Director of Information System Development, Services and Compliance (DISDSC)',
+      organization: 'Ministry of Communication and Information Technology',
+      email: 'mohamed.mashaka@mawasiliano.go.tz',
+      personalEmail: 'mohdpo2020@gmail.com',
+      phone: '+255714757373',
+      address: {
+        street: 'Mtumba Government City, Mawasiliano Street',
+        poBox: 'P.O. BOX 677',
+        city: 'Dodoma',
+        postalCode: '40470',
+        country: 'Tanzania'
+      }
+    };
+
+    // Function to generate vCard
+    function generateVCard(contact) {
+      const vCard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        `FN:${contact.firstName} ${contact.lastName}`,
+        `N:${contact.lastName};${contact.firstName};;;`,
+        `TITLE:${contact.title}`,
+        `ORG:${contact.organization}`,
+        `EMAIL;TYPE=WORK:${contact.email}`,
+        `EMAIL;TYPE=HOME:${contact.personalEmail}`,
+        `TEL;TYPE=CELL:${contact.phone}`,
+        `ADR;TYPE=WORK:;;${contact.address.street};${contact.address.city};;${contact.address.postalCode};${contact.address.country}`,
+        `X-ADDRESS-LINE1:${contact.address.street}`,
+        `X-ADDRESS-LINE2:${contact.address.poBox}`,
+        `NOTE:${contact.title} at ${contact.organization}, United Republic of Tanzania`,
+        'END:VCARD'
+      ].join('\n');
+      
+      return vCard;
+    }
+
+    // Function to show download modal
+    function showDownloadModal() {
+      // Create modal overlay
+      const modalOverlay = document.createElement('div');
+      modalOverlay.id = 'contact-modal';
+      modalOverlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+      `;
+
+      // Create modal content
+      const modalContent = document.createElement('div');
+      modalContent.style.cssText = `
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        text-align: center;
+        position: relative;
+        animation: modalFadeIn 0.3s ease-out;
+      `;
+
+      // Add animation keyframes to head
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes modalFadeIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9) translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        
+        @keyframes modalFadeOut {
+          from {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: scale(0.9) translateY(-20px);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+
+      modalContent.innerHTML = `
+        <div style="margin-bottom: 20px;">
+          <div style="width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+            <i class="fas fa-address-book" style="color: white; font-size: 24px;"></i>
+          </div>
+          <h3 style="color: var(--primary-blue); margin: 0 0 10px 0; font-family: 'Playfair Display', serif;">Save Contact</h3>
+          <p style="color: var(--medium-gray); margin: 0 0 20px 0; line-height: 1.5;">Choose how you'd like to save Mohamed Mashaka's contact information to your device.</p>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <button id="download-vcard" style="
+            padding: 14px 20px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+          ">
+            <i class="fas fa-download"></i>
+            Download Contact (.vcf)
+          </button>
+          
+          <button id="view-business-card" style="
+            padding: 14px 20px;
+            background: var(--accent-gold);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+          ">
+            <i class="fas fa-id-card"></i>
+            View Business Card
+          </button>
+          
+          <button id="close-modal" style="
+            padding: 12px 20px;
+            background: transparent;
+            color: var(--medium-gray);
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          ">
+            Cancel
+          </button>
+        </div>
+      `;
+
+      modalOverlay.appendChild(modalContent);
+      document.body.appendChild(modalOverlay);
+
+      // Add hover effects
+      const downloadBtn = modalContent.querySelector('#download-vcard');
+      const businessCardBtn = modalContent.querySelector('#view-business-card');
+      const closeBtn = modalContent.querySelector('#close-modal');
+
+      downloadBtn.onmouseover = () => downloadBtn.style.transform = 'translateY(-2px)';
+      downloadBtn.onmouseout = () => downloadBtn.style.transform = 'translateY(0)';
+      
+      businessCardBtn.onmouseover = () => businessCardBtn.style.transform = 'translateY(-2px)';
+      businessCardBtn.onmouseout = () => businessCardBtn.style.transform = 'translateY(0)';
+      
+      closeBtn.onmouseover = () => {
+        closeBtn.style.background = '#f1f5f9';
+        closeBtn.style.borderColor = '#cbd5e1';
+      };
+      closeBtn.onmouseout = () => {
+        closeBtn.style.background = 'transparent';
+        closeBtn.style.borderColor = '#e2e8f0';
+      };
+
+      // Event listeners
+      downloadBtn.addEventListener('click', downloadVCard);
+      businessCardBtn.addEventListener('click', () => {
+        closeModal();
+        window.location.href = 'back-card.html';
+      });
+      closeBtn.addEventListener('click', closeModal);
+      
+      // Close on overlay click
+      modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+          closeModal();
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function escapeHandler(e) {
+        if (e.key === 'Escape') {
+          closeModal();
+          document.removeEventListener('keydown', escapeHandler);
+        }
+      });
+    }
+
+    // Function to download vCard
+    function downloadVCard() {
+      const vCardData = generateVCard(contactInfo);
+      const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8' });
+      const url = window.URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Mohamed_Mashaka_Contact.vcf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      // Show success message
+      showSuccessMessage();
+      closeModal();
+    }
+
+    // Function to close modal
+    function closeModal() {
+      const modal = document.getElementById('contact-modal');
+      if (modal) {
+        modal.style.animation = 'modalFadeOut 0.3s ease-in forwards';
+        setTimeout(() => {
+          document.body.removeChild(modal);
+        }, 300);
+      }
+    }
+
+    // Function to show success message
+    function showSuccessMessage() {
+      const successMsg = document.createElement('div');
+      successMsg.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #10b981;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 50px;
+        font-weight: 600;
+        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        z-index: 1001;
+        animation: successFadeIn 0.3s ease-out;
+      `;
+      successMsg.innerHTML = '<i class="fas fa-check-circle" style="margin-right: 8px;"></i>Contact downloaded successfully!';
+      
+      // Add success animation
+      const successStyle = document.createElement('style');
+      successStyle.textContent = `
+        @keyframes successFadeIn {
+          from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+          }
+        }
+      `;
+      document.head.appendChild(successStyle);
+      
+      document.body.appendChild(successMsg);
+      
+      setTimeout(() => {
+        successMsg.style.animation = 'successFadeIn 0.3s ease-in reverse';
+        setTimeout(() => {
+          if (document.body.contains(successMsg)) {
+            document.body.removeChild(successMsg);
+          }
+        }, 300);
+      }, 3000);
+    }
+
+    // Main click event for download button
+    document.getElementById('download').addEventListener('click', (e) => {
+      e.preventDefault();
+      showDownloadModal();
     });
   </script>
 </body>

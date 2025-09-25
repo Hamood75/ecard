@@ -302,6 +302,11 @@
       border-color: #d97706;
     }
 
+    #contact-btn:hover {
+      background: #059669 !important;
+      border-color: #059669 !important;
+    }
+
     .business-card.flipped {
       transform: rotateY(180deg);
     }
@@ -434,8 +439,12 @@
       Flip Card
     </button>
     <button type="button" class="control-btn" id="download-btn">
-      <i class="fas fa-download"></i>
-      Download
+      <i class="fas fa-image"></i>
+      Download Card
+    </button>
+    <button type="button" class="control-btn" id="contact-btn" style="background: #10b981; border-color: #10b981;">
+      <i class="fas fa-address-book"></i>
+      Save Contact
     </button>
   </div>
 
@@ -599,6 +608,63 @@
       }, 100);
     }
 
+    // Contact information object
+    const contactInfo = {
+      firstName: 'Mohamed Abdi',
+      lastName: 'Mashaka',
+      title: 'Director of Information System Development, Services and Compliance (DISDSC)',
+      organization: 'Ministry of Communication and Information Technology',
+      email: 'mohamed.mashaka@mawasiliano.go.tz',
+      personalEmail: 'mohdpo2020@gmail.com',
+      phone: '+255714757373',
+      address: {
+        street: 'Mtumba Government City, Mawasiliano Street',
+        poBox: 'P.O. BOX 677',
+        city: 'Dodoma',
+        postalCode: '40470',
+        country: 'Tanzania'
+      }
+    };
+
+    // Function to generate vCard
+    function generateVCard(contact) {
+      const vCard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        `FN:${contact.firstName} ${contact.lastName}`,
+        `N:${contact.lastName};${contact.firstName};;;`,
+        `TITLE:${contact.title}`,
+        `ORG:${contact.organization}`,
+        `EMAIL;TYPE=WORK:${contact.email}`,
+        `EMAIL;TYPE=HOME:${contact.personalEmail}`,
+        `TEL;TYPE=CELL:${contact.phone}`,
+        `ADR;TYPE=WORK:;;${contact.address.street};${contact.address.city};;${contact.address.postalCode};${contact.address.country}`,
+        `X-ADDRESS-LINE1:${contact.address.street}`,
+        `X-ADDRESS-LINE2:${contact.address.poBox}`,
+        `NOTE:${contact.title} at ${contact.organization}, United Republic of Tanzania`,
+        'END:VCARD'
+      ].join('\n');
+      
+      return vCard;
+    }
+
+    // Function to download vCard
+    function downloadVCard() {
+      const vCardData = generateVCard(contactInfo);
+      const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8' });
+      const url = window.URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Mohamed_Mashaka_Contact.vcf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      showStatus("Contact saved successfully! Check your downloads folder.");
+    }
+
     // Add event listeners when page loads
     document.addEventListener('DOMContentLoaded', function() {
       // Add flip button functionality
@@ -611,6 +677,12 @@
       const downloadBtn = document.getElementById('download-btn');
       if (downloadBtn) {
         downloadBtn.addEventListener('click', downloadCard);
+      }
+      
+      // Add contact button functionality
+      const contactBtn = document.getElementById('contact-btn');
+      if (contactBtn) {
+        contactBtn.addEventListener('click', downloadVCard);
       }
     });
 
